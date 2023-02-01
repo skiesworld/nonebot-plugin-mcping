@@ -1,0 +1,2 @@
+# nonebot-plugin-mcping
+基于NoneBot的查询MineCraft服务器状态并返回图片的插件

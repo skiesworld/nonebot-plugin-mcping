@@ -13,13 +13,10 @@
   ```shell
   nb plugin install nonebot-plugin-mcping
   ```
-- 字体与背景
-    - 自行选择字体放入nb项目的src目录中并命名为 `mcping.ttf`
-    - 自行选择背景图放入nb项目的src文件中并命名为 `bg.png`
-        - 图片尺寸：`630 x 85` 最佳
-    - 库中已提供 `simhei.ttf` 字体、MineCraft客户端多人游戏背景图
 
 ## 命令
+
+默认查询 `25565`端口，如需指定端口只需要加上 `:port`，如：`jes mc.server.com:1234`
 
 - 查询 `Java` 服务器状态
   ```
@@ -33,8 +30,6 @@
 
 # 特别感谢
 
-- [@SK-415](https://github.com/SK-415) ：感谢SK佬给予许多优秀的建议和耐心的解答。
-- [@zhz-红石头](https://github.com/zhzhongshi) ：感谢红石头在代码上的帮助
 - [NoneBot2](https://github.com/nonebot/nonebot2)： 插件使用的开发框架。
 - [go-cqhttp](https://github.com/Mrs4s/go-cqhttp)： 稳定完善的 CQHTTP 实现。
 

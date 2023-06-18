@@ -1,9 +1,17 @@
 from nonebot import on_command
+from nonebot.plugin import PluginMetadata
 from nonebot.internal.matcher import Matcher
 from nonebot.internal.params import ArgPlainText
 from nonebot.params import CommandArg
 from nonebot.adapters.onebot.v11.message import Message
 from .data_source import get_java_server_status, get_be_server_status
+
+__plugin_meta__ = PluginMetadata(
+    name="MC Ping",
+    description="获取 Minecraft JE/BE 服务器 Motd 图片信息",
+    usage="jes mc.java.com; bes mc.be.com",
+    extra={},
+)
 
 jes = on_command("jes", priority=1)
 bes = on_command("bes", priority=1)

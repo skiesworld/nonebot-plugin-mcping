@@ -5,45 +5,45 @@ from typing import Union
 
 from PIL import Image, ImageFont, ImageDraw
 from mcstatus import JavaServer, BedrockServer
-from nonebot.adapters.onebot.v11 import MessageSegment
+from mcstatus.status_response import BedrockStatusResponse
 
 
-async def get_java_server_status(server_ip: str):
+async def get_java_server_status(server_ip: str) -> Union[Image, None]:
     if server_ip.find(':') != -1:
         server_ip += ':25565'
     try:
         server = await JavaServer.async_lookup(server_ip.strip())
         server_status = await server.async_status()
-    except:
-        return "获取服务器信息失败"
-    image = get_server_info_image(
+    except Exception as e:
+        return None
+    return get_server_info_image(
         motd=server_status.description,
         icon_base64=server_status.favicon.removeprefix("data:image/png;base64,") if server_status.favicon else None,
         online=f"{server_status.players.online} / {server_status.players.max}",
         ping=int(server_status.latency),
         server_version=server_status.version.name
     )
-    return MessageSegment.image(image)
 
 
-async def get_be_server_status(server_ip: str):
+async def get_be_server_status(server_ip: str) -> Union[Image, None]:
+    server_port = 19132
     if server_ip.find(':') != -1:
-        server_ip += ':19132'
+        server_ip = server_ip.split(':')[0]
+        server_port = int(server_ip.split(':')[1])
 
     try:
-        server = BedrockServer.lookup(server_ip.strip())
-        server_status = server.status()
-    except:
-        return "获取服务器信息失败"
+        server = BedrockServer(host=server_ip.strip(), port=server_port)
+        server_status: BedrockStatusResponse = await server.async_status()
+    except Exception as e:
+        return None
 
-    image = get_server_info_image(
-        motd=server_status.motd,
+    return get_server_info_image(
+        motd=str(server_status.motd),
         icon_base64=None,
         online=f"{server_status.players_online} / {server_status.players_max}\n",
         ping=int(server_status.latency),
         server_version=server_status.version.version
     )
-    return MessageSegment.image(image)
 
 
 def base64_pil(base64_str: str) -> Image:

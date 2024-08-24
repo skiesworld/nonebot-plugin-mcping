@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "nonebot-plugin-mcping"
-version = "0.0.7"
+version = "0.0.8"
 description = "基于NoneBot的查询MineCraft服务器Motd并返回图片的插件"
 authors = ["17TheWord <17theword@gmail.com>"]
 license = "MIT"

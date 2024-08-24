@@ -42,9 +42,9 @@ async def handle_server_ip(
 ):
     if server_status := await get_java_server_status(server_ip):
         if isinstance(event, OBMessageEvent):
-            server_status = OBMessageSegment.image(server_status.tobytes())
+            server_status = OBMessageSegment.image(server_status)
         else:
-            server_status = QQMessageSegment.file_image(server_status.tobytes())
+            server_status = QQMessageSegment.file_image(server_status)
         await matcher.finish(server_status)
     else:
         await matcher.finish("查询服务器失败，请稍后再试")
@@ -58,7 +58,7 @@ async def handle_server_ip(
 ):
     if server_status := await get_be_server_status(server_ip):
         if isinstance(event, OBMessageEvent):
-            server_status = OBMessageSegment.image(server_status.tobytes())
+            server_status = OBMessageSegment.image(server_status)
         else:
-            server_status = QQMessageSegment.file_image(server_status.tobytes())
+            server_status = QQMessageSegment.file_image(server_status)
         await matcher.finish(server_status)

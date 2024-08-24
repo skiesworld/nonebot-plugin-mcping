@@ -1,5 +1,6 @@
 import base64
 import io
+from pathlib import Path
 from io import BytesIO
 from typing import Union
 
@@ -105,7 +106,7 @@ def get_server_info_image(
     motd_list = motd.replace("§", ";;;§").splitlines(True)
 
     # 获取背景
-    background_image = Image.open("src/bg.png")
+    background_image = Image.open(Path(__file__).parent / 'bg.png')
 
     image_long = int(background_image.size[0])
     image_short = int(background_image.size[1])

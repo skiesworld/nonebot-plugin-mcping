@@ -8,7 +8,7 @@ from mcstatus import JavaServer, BedrockServer
 from mcstatus.status_response import BedrockStatusResponse
 
 
-async def get_java_server_status(server_ip: str) -> Union[Image, None]:
+async def get_java_server_status(server_ip: str) -> Image.Image | None:
     if server_ip.find(':') != -1:
         server_ip += ':25565'
     try:
@@ -25,7 +25,7 @@ async def get_java_server_status(server_ip: str) -> Union[Image, None]:
     )
 
 
-async def get_be_server_status(server_ip: str) -> Union[Image, None]:
+async def get_be_server_status(server_ip: str) -> Image.Image | None:
     server_port = 19132
     if server_ip.find(':') != -1:
         server_ip = server_ip.split(':')[0]
@@ -46,7 +46,7 @@ async def get_be_server_status(server_ip: str) -> Union[Image, None]:
     )
 
 
-def base64_pil(base64_str: str) -> Image:
+def base64_pil(base64_str: str) -> Image.Image:
     """将base64转为 PIL 图片"""
     image = base64.b64decode(base64_str)
     image = BytesIO(image)

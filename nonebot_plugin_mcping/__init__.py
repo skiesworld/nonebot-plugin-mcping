@@ -22,8 +22,8 @@ __plugin_meta__ = PluginMetadata(
     }
 )
 
-jes = on_command("jes", priority=1)
-bes = on_command("bes", priority=1)
+jes = on_command("jes", priority=90)
+bes = on_command("bes", priority=90)
 
 
 @jes.handle()
@@ -35,7 +35,6 @@ async def handle_first_receive(matcher: Matcher, args: Message = CommandArg()):
 
 
 @jes.got("server", prompt="你想查询那个服务器的状态呢？")
-@bes.got("server", prompt="你想查询那个服务器的状态呢？")
 async def handle_server_ip(
         matcher: Matcher,
         event: OBMessageEvent | QQMessageEvent,
@@ -43,9 +42,23 @@ async def handle_server_ip(
 ):
     if server_status := await get_java_server_status(server_ip):
         if isinstance(event, OBMessageEvent):
-            server_status = OBMessageSegment.image(server_status)
+            server_status = OBMessageSegment.image(server_status.tobytes())
         else:
-            server_status = QQMessageSegment.file_image(server_status)
+            server_status = QQMessageSegment.file_image(server_status.tobytes())
         await matcher.finish(server_status)
     else:
         await matcher.finish("查询服务器失败，请稍后再试")
+
+
+@bes.got("server", prompt="你想查询那个服务器的状态呢？")
+async def handle_server_ip(
+        matcher: Matcher,
+        event: OBMessageEvent | QQMessageEvent,
+        server_ip: str = ArgPlainText("server")
+):
+    if server_status := await get_be_server_status(server_ip):
+        if isinstance(event, OBMessageEvent):
+            server_status = OBMessageSegment.image(server_status.tobytes())
+        else:
+            server_status = QQMessageSegment.file_image(server_status.tobytes())
+        await matcher.finish(server_status)

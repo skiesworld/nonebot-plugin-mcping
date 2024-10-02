@@ -85,7 +85,8 @@ color_dict = {
 
 def get_font(font_size: int) -> ImageFont:
     """根据参数返回不同号字体"""
-    return ImageFont.truetype(font='src/simhei.ttf', size=font_size, encoding="utf-8")
+    ttf_path = Path(__file__).parent.joinpath("simhei.ttf")
+    return ImageFont.truetype(font=ttf_path, size=font_size, encoding="utf-8")
 
 
 def get_color(color_code: str) -> tuple:
